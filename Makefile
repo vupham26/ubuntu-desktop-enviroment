@@ -20,8 +20,9 @@ all:
 	make virtualbox
 	make discord telegram skype spotify brave gitkraken driverppa pts dbeaver
 	make micro
-	make zsh
 	make asdf
+	make zsh
+	
 
 preparations:
 	sudo apt-add-repository universe
@@ -327,13 +328,15 @@ dbeaver:
 micro:
 	curl https://getmic.ro | bash
 	sudo mv micro /usr/local/bin
-
+	
+asdf:
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
+	
 zsh:
 	sudo apt-get install zsh -y
 	sh -c "$$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-	
-asdf:
-	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
-	echo -e '\n. $$HOME/.asdf/asdf.sh' >> ~/.zshrc
-	echo -e '\n. $$HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
+	rm -rf $$HOME/.zshrc
+	cp .zshrc $$HOME/.
+	source ~/.zshrc
+	brew install zsh-autosuggestions zsh-completions zsh-git-prompt zsh-history-substring-search zsh-navigation-tools zsh-syntax-highlighting zshdb 

@@ -21,8 +21,13 @@ all:
 	make discord telegram skype spotify brave gitkraken driverppa pts dbeaver
 	make micro
 	make asdf
+	make Nix
+	make NVM
+	make PYENV
+	make rustc
+	make sdkman
+	make haskell
 	make zsh
-	
 
 preparations:
 	sudo apt-add-repository universe
@@ -178,7 +183,7 @@ pandoc:
 	sudo rm -f /usr/share/applications/texdoctk.desktop
 
 system:
-	sudo apt -y install subversion git git-gui git-core wget curl vim network-manager-openvpn gparted gnome-disk-utility usb-creator-gtk traceroute cloc whois mssh inotify-tools openssh-server sqlite3 etckeeper stress ntp heaptrack powertop synaptic gdebi-core lm-sensors 
+	sudo apt -y install subversion git git-gui git-core yarn wget curl vim network-manager-openvpn gparted gnome-disk-utility usb-creator-gtk traceroute cloc whois mssh inotify-tools openssh-server sqlite3 etckeeper stress ntp heaptrack powertop synaptic gdebi-core lm-sensors golang-go
 	sudo powertop --auto-tune
 	sudo apt-add-repository -y ppa:teejee2008/ppa
 	sudo apt -y install ukuu
@@ -328,15 +333,43 @@ dbeaver:
 micro:
 	curl https://getmic.ro | bash
 	sudo mv micro /usr/local/bin
-	
+
 asdf:
 	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.4.3
+
+Nix:
+	sudo curl https://nixos.org/nix/install | sh
+
+NVM:
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+PYENV:
+	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
+	curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+
+Haskell:
+	 sudo apt-get -y install haskell-platform 
+	 cabal install cabal-install
+	 cabal update
+	 cabal sandbox init
+	 curl -sSL https://get.haskellstack.org/ | sh
 	
+sdkman:
+	curl -s "https://get.sdkman.io" | bash
+
+rustc:
+	curl https://sh.rustup.rs -sSf | sh
+
 zsh:
-	sudo apt-get install zsh -y
+	sudo apt-get install -y zsh 
 	sh -c "$$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+	git clone https://github.com/ryanoasis/nerd-fonts.git 
+	./nerd-fonts/install.sh
+	sudo apt-get install -y fonts-powerline
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 	rm -rf $$HOME/.zshrc
 	cp .zshrc $$HOME/.
 	source ~/.zshrc
 	brew install zsh-autosuggestions zsh-completions zsh-git-prompt zsh-history-substring-search zsh-navigation-tools zsh-syntax-highlighting zshdb 
+
